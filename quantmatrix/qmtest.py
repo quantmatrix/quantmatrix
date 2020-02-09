@@ -2,12 +2,20 @@
 # -*- author: Three Zhang -*-
 
 
-from quantmatrix.loggers import logger
+from cmd import Cmd
+import os
+import sys
 
 
-def main():
-    logger.info("hello")
+class Cli(Cmd):
+    def __init(self):
+        Cmd.__init__(self)
+
+    def do_hello(self, line):
+        print
+        "hello", line
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    cli = Cli()
+    cli.cmdloop()
