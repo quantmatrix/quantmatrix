@@ -2,6 +2,7 @@
 # -*- author: Three Zhang -*-
 
 import sys
+import cmd
 import warnings
 
 
@@ -18,3 +19,11 @@ class Options:
     schemadir = None
     configroot = None
     here = None
+
+
+class CliOptions(Options):
+    pass
+
+
+class Cli(cmd.Cmd):
+    pass

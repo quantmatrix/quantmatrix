@@ -16,12 +16,13 @@ class Logger(object):
         return cls.__instance
 
     def __init__(self):
-        self.logger = logging.getLogger('quantmatrix')
+        self.logger = logging.getLogger("quantmatrix")
         self.logger.setLevel(logging.DEBUG)
         console_handler = ColorizedStreamHandler()
         console_handler.setLevel(logging.DEBUG)
         console_handler.setFormatter(JsonFormatter(
-            '(name)s (asctime)s (threadName)s (levelname)s %(filename)s %(lineno)d %(message)s'))
+            "(name)s (asctime)s (threadName)s (levelname)s %(filename)s %(lineno)d %(message)s")
+        )
         self.logger.addHandler(console_handler)
 
 
