@@ -1,0 +1,10 @@
+include CHANGES.rst
+include LICENSES
+include README.rst
+include quantmatrix/version.txt
+include quantmatrix/scripts/*.py
+recursive-include quantmatrix/tests/fixtures *.conf *.py
+recursive-include quantmatrix/ui *.html *.css *.png *.gif
+include docs/Makefile
+recursive-include docs *.py *.rst *.css *.gif *.png
+recursive-exclude docs/.build *
