@@ -2,13 +2,13 @@
 # -*- author: Three Zhang -*-
 
 import sys
-import cmd
 import warnings
+from typing import TextIO
 
 
 class Options:
-    stderr = sys.stderr
-    stdout = sys.stdout
+    stderr: TextIO = sys.stderr
+    stdout: TextIO = sys.stdout
     exit = sys.exit
     warnings = warnings
 
@@ -22,8 +22,4 @@ class Options:
 
 
 class CliOptions(Options):
-    pass
-
-
-class Cli(cmd.Cmd):
     pass
