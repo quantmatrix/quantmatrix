@@ -2,19 +2,14 @@
 # -*- author: Three Zhang -*-
 
 
+from quantmatrix.single import singleton
+
+
+@singleton
 class TS(object):
-    __instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls.__instance:
-            cls.__instance = super().__new__(cls, *args, **kwargs)
-        return cls.__instance
+    pass
 
 
+@singleton
 class PD(object):
-    __instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls.__instance:
-            cls.__instance = super().__new__(cls, *args, **kwargs)
-        return cls.__instance
+    pass

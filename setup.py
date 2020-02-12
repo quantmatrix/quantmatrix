@@ -73,7 +73,6 @@ dist = setup(
         'console_scripts': [
             'qmquant = quantmatrix.qmquant:main',
             'qmpump = quantmatrix.qmpump:main',
-            'qmweb = quantmatrix.qmweb:main'
         ],
     },
 )
