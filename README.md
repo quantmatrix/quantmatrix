@@ -15,6 +15,12 @@
 - pandas-datareader
 - tushare
 
+
+## 
+- 异步任务
+- 定时任务
+- http api
+
 ## License
 
 [GPL-v3.0](https://github.com/quantmatrix/quantmatrix/blob/master/LICENSE)

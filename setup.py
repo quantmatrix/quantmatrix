@@ -71,8 +71,7 @@ dist = setup(
     test_suite="quantmatrix.tests",
     entry_points={
         'console_scripts': [
-            'qmquant = quantmatrix.qmquant:main',
-            'qmpump = quantmatrix.qmpump:main',
+            'quantmatrixd = quantmatrix.quantmatrixd:main',
         ],
     },
 )
