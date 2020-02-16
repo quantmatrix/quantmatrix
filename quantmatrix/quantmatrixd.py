@@ -20,9 +20,6 @@ from typing import Optional
 from typing import Awaitable
 from apscheduler.schedulers.tornado import TornadoScheduler
 
-# from quantmatrix.datasource.input.transaction import stock_china
-
-
 server: tornado.httpserver.HTTPServer
 scheduler: TornadoScheduler = TornadoScheduler()
 
@@ -49,11 +46,11 @@ class QuantMatrixRequestHandler(tornado.web.RequestHandler):
             "Version", open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'version.txt')).read().strip()
         )
 
-    def render_json(self, data: Dict[str, Any] = {}, code: int = 0, message: str = "success"):
+    def render_json(self, data: Dict[str, Any] = None, code: int = 0, message: str = "success"):
         result: Dict[str, Any] = {
             "code": code,
             "message": message,
-            "data": data
+            "data": {} if data is None else data
         }
         self.set_header("Content-Type", "application/json; charset=utf-8")
         self.write(tornado.escape.json_encode(result))
@@ -123,8 +120,10 @@ class App(tornado.web.Application):
             (r"/test", TestHandler)
         ]
 
+        from quantmatrix.datasource.input import transaction_stock_china
+
         # 股票
-        # scheduler.add_job(stock_china, 'interval', seconds=5)
+        scheduler.add_job(transaction_stock_china, 'interval', seconds=5)
 
         settings: Any = {
             "debug": tornado.options.options["debug"],
