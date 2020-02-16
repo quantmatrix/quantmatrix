@@ -18,27 +18,20 @@ from typing import List
 from typing import Dict
 from typing import Optional
 from typing import Awaitable
+from apscheduler.schedulers.tornado import TornadoScheduler
+
+# from quantmatrix.datasource.input.transaction import stock_china
+
 
 server: tornado.httpserver.HTTPServer
+scheduler: TornadoScheduler = TornadoScheduler()
 
 
 def authenticated(method):
-    """Decorate methods with this to require that the user be logged in.
-
-    If the user is not logged in, they will be redirected to the configured
-    `login url <RequestHandler.get_login_url>`.
-
-    If you configure a login url with a query parameter, Tornado will
-    assume you know what you're doing and use it as-is.  If not, it
-    will add a `next` paHTTPErrorrameter so the login page knows where to send
-    you once you're logged in.
-    """
-
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
         if not self.get_secure_cookie("auth"):
             raise tornado.web.HTTPError(403)
-
         return method(self, *args, **kwargs)
 
     return wrapper
@@ -56,7 +49,7 @@ class QuantMatrixRequestHandler(tornado.web.RequestHandler):
             "Version", open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'version.txt')).read().strip()
         )
 
-    def render_json(self, data: Dict[str, Any], code: int, message: str):
+    def render_json(self, data: Dict[str, Any] = {}, code: int = 0, message: str = "success"):
         result: Dict[str, Any] = {
             "code": code,
             "message": message,
@@ -68,19 +61,76 @@ class QuantMatrixRequestHandler(tornado.web.RequestHandler):
 
 class IndexHandler(QuantMatrixRequestHandler):
     def get(self):
-        self.write("hello quantmatrix")
+        self.write("")
+
+
+class QuantHandler(QuantMatrixRequestHandler):
+    @authenticated
+    def post(self):
+        self.write("")
+
+
+class InitHandler(QuantMatrixRequestHandler):
+    def post(self):
+        self.__init_data_source_path()
+
+        self.__init_model()
+
+        self.render_json()
+
+    @classmethod
+    def __init_data_source_path(cls):
+        from quantmatrix.datasource import DATASOURCE, FUNDAMENTAL, NEWS, TRANSACTION
+
+        # fundamental
+        os.makedirs("%s/%s" % (tornado.options.options["data-source"], FUNDAMENTAL))
+
+        # news
+        os.makedirs("%s/%s" % (tornado.options.options["data-source"], NEWS))
+
+        # transaction
+        for merchandise, markets in DATASOURCE.get(TRANSACTION).items():
+            for market in markets:
+                directory = "%s/%s/%s/%s" % (tornado.options.options["data-source"], TRANSACTION, merchandise, market)
+                if not os.path.exists(directory):
+                    os.makedirs(directory)
+                    os.makedirs("%s/file" % directory)
+
+    @classmethod
+    def __init_model(cls):
+        from quantmatrix.model.system import init_system
+        from quantmatrix.model.datasource import init_datasource
+        from quantmatrix.model.quant import init_quant
+        # system
+        init_system()
+        # datasource
+        init_datasource()
+        # quant
+        init_quant()
+
+
+class TestHandler(QuantMatrixRequestHandler):
+    def get(self):
+        self.write("")
 
 
 class App(tornado.web.Application):
     def __init__(self):
         handlers: List[Any] = [
-            (r"/", IndexHandler)
+            (r"/", IndexHandler),
+            (r"/quant", QuantHandler),
+            (r"/init", InitHandler),
+            (r"/test", TestHandler)
         ]
+
+        # 股票
+        # scheduler.add_job(stock_china, 'interval', seconds=5)
+
         settings: Any = {
             "debug": tornado.options.options["debug"],
             "template_path": "%s/web/%s" % (os.path.dirname(os.path.realpath(__file__)), "templates"),
             "static_path": "%s/web/%s" % (os.path.dirname(os.path.realpath(__file__)), "static"),
-            "xsrf_cookies": True,
+            "xsrf_cookies": False,
             'compress_response': False,
             "cookie_secret": "VcfW7jzUTKcT[33(ZdG#Xtxs12RzAPbYTWpvQKvEa8BKPfrKxz$diPB",
         }
@@ -107,8 +157,6 @@ def main():
 
     tornado.log.enable_pretty_logging()
 
-    tornado.log.LogFormatter(fmt="(name)s (asctime)s (threadName)s (levelname)s %(filename)s %(lineno)d %(message)s")
-
     global server
     server = tornado.httpserver.HTTPServer(App(), xheaders=True)
     server.add_sockets(tornado.netutil.bind_sockets(
@@ -118,6 +166,8 @@ def main():
     )
 
     logging.info('quantmatrix start ...')
+
+    scheduler.start()
     tornado.ioloop.IOLoop.instance().start()
 
 

@@ -2,29 +2,20 @@
 # -*- author: Three Zhang -*-
 
 
-from typing import List
+from typing import Any
+from typing import Dict
 
-UNIX_HTTP_SERVER_HOST = "host"
-UNIX_HTTP_SERVER_PORT = "port"
-UNIX_HTTP_SERVER_USERNAME = "username"
-UNIX_HTTP_SERVER_PASSWORD = "password"
-
-MARKET_BOND: str = "bond"
-MARKET_FOREX: str = "forex"
-MARKET_FUTURES: str = "futures"
-MARKET_STOCK: str = "stock"
-
-MARKETS: List[str] = [
-    MARKET_BOND, MARKET_FOREX, MARKET_FUTURES, MARKET_STOCK
-]
+FUNDAMENTAL = "fundamental"
+NEWS = "news"
+TRANSACTION = "transaction"
 
 NEWS_YAHOO = "yahoo"
 NEWS_GOOGLE = "google"
 
-NEWS_LIST: List[str] = [
-    NEWS_YAHOO,
-    NEWS_GOOGLE
-]
+BOND: str = "bond"
+FOREX: str = "forex"
+FUTURES: str = "futures"
+STOCK: str = "stock"
 
 COUNTRY_AMERICA: str = "us"  # 美国
 COUNTRY_BRITAIN: str = "uk"  # 英国
@@ -37,19 +28,6 @@ COUNTRY_JAPAN: str = "jp"  # 日本
 COUNTRY_SINGAPORE: str = "sg"  # 新加坡
 COUNTRY_SWITZERLAND: str = "ch"  # 瑞士
 
-COUNTRIES: List[str] = [
-    COUNTRY_AMERICA,
-    COUNTRY_BRITAIN,
-    COUNTRY_CANADA,
-    COUNTRY_CHINA,
-    COUNTRY_FRANCE,
-    COUNTRY_GERMANY,
-    COUNTRY_HONG_KONG,
-    COUNTRY_JAPAN,
-    COUNTRY_SINGAPORE,
-    COUNTRY_SWITZERLAND,
-]
-
 FOREX_AUSTRALIAN_DOLLAR = "aud"  # 澳元
 FOREX_CAD = "cad"  # 加元
 FOREX_DOLLAR = "usd"  # 美元
@@ -59,13 +37,51 @@ FOREX_POUND = "gbp"  # 英镑
 FOREX_SWISS_FRANC = "chf"  # 瑞士法郎
 FOREX_YEN = "jpy"  # 日元
 
-FOREXES = [
-    FOREX_AUSTRALIAN_DOLLAR,
-    FOREX_CAD,
-    FOREX_DOLLAR,
-    FOREX_EURO,
-    FOREX_NEW_ZEALAND_DOLLAR,
-    FOREX_POUND,
-    FOREX_SWISS_FRANC,
-    FOREX_YEN,
-]
+DATASOURCE: Dict[str, Any] = {
+    FUNDAMENTAL: {},
+    NEWS: [
+        NEWS_YAHOO, NEWS_GOOGLE
+    ],
+    TRANSACTION: {
+        BOND: [
+            COUNTRY_AMERICA,
+            COUNTRY_BRITAIN,
+            COUNTRY_CANADA,
+            COUNTRY_CHINA,
+            COUNTRY_FRANCE,
+            COUNTRY_GERMANY,
+            COUNTRY_HONG_KONG,
+            COUNTRY_JAPAN,
+            COUNTRY_SINGAPORE,
+            COUNTRY_SWITZERLAND,
+        ],
+        FOREX: [
+            FOREX_AUSTRALIAN_DOLLAR,
+            FOREX_CAD,
+            FOREX_DOLLAR,
+            FOREX_EURO,
+            FOREX_NEW_ZEALAND_DOLLAR,
+            FOREX_POUND,
+            FOREX_SWISS_FRANC,
+            FOREX_YEN,
+        ],
+        FUTURES: [
+            COUNTRY_AMERICA,
+            COUNTRY_BRITAIN,
+            COUNTRY_HONG_KONG,
+            COUNTRY_SINGAPORE,
+        ],
+        STOCK: [
+            COUNTRY_AMERICA,
+            COUNTRY_BRITAIN,
+            COUNTRY_CANADA,
+            COUNTRY_CHINA,
+            COUNTRY_FRANCE,
+            COUNTRY_GERMANY,
+            COUNTRY_HONG_KONG,
+            COUNTRY_JAPAN,
+            COUNTRY_SINGAPORE,
+            COUNTRY_SWITZERLAND,
+        ]
+    }
+}
