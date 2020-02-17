@@ -120,10 +120,10 @@ class App(tornado.web.Application):
             (r"/test", TestHandler)
         ]
 
-        from quantmatrix.datasource.input import transaction_stock_china
-
         # 股票
-        scheduler.add_job(transaction_stock_china, 'interval', seconds=5)
+        # 中国A股
+        from quantmatrix.datasource.input import transaction_stock_china
+        scheduler.add_job(transaction_stock_china, "cron", day_of_week="0-4", hour=15, minute=3, second=0)
 
         settings: Any = {
             "debug": tornado.options.options["debug"],

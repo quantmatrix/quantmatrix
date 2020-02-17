@@ -118,7 +118,7 @@ def transaction_stock_canada():
 
 
 def transaction_stock_china():
-    pass
+    print("transaction_stock_china")
 
 
 def transaction_stock_france():
