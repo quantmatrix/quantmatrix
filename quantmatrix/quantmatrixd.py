@@ -80,11 +80,14 @@ class InitHandler(QuantMatrixRequestHandler):
         from quantmatrix.datasource import DATASOURCE, FUNDAMENTAL, NEWS, TRANSACTION
 
         # fundamental
-        os.makedirs("%s/%s" % (tornado.options.options["data-source"], FUNDAMENTAL))
+        fundamental_path = "%s/%s" % (tornado.options.options["data-source"], FUNDAMENTAL)
+        if not os.path.exists(fundamental_path):
+            os.makedirs(fundamental_path)
 
         # news
-        os.makedirs("%s/%s" % (tornado.options.options["data-source"], NEWS))
-
+        news_path = "%s/%s" % (tornado.options.options["data-source"], NEWS)
+        if not os.path.exists(news_path):
+            os.makedirs(news_path)
         # transaction
         for merchandise, markets in DATASOURCE.get(TRANSACTION).items():
             for market in markets:
@@ -122,8 +125,8 @@ class App(tornado.web.Application):
 
         # 股票
         # 中国A股
-        from quantmatrix.datasource.input import transaction_stock_china
-        scheduler.add_job(transaction_stock_china, "cron", day_of_week="0-4", hour=15, minute=3, second=0)
+        from quantmatrix.datasource.input import transaction_stock_certificate_china
+        scheduler.add_job(transaction_stock_certificate_china, "cron", day_of_week="0-4", hour=15, minute=3, second=0)
 
         settings: Any = {
             "debug": tornado.options.options["debug"],

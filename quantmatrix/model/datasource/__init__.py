@@ -3,4 +3,12 @@
 
 
 def init_datasource():
-    pass
+    from quantmatrix.model.datasource.transaction import init_datasource_transaction_bond
+    from quantmatrix.model.datasource.transaction import init_datasource_transaction_forex
+    from quantmatrix.model.datasource.transaction import init_datasource_transaction_futures
+    from quantmatrix.model.datasource.transaction import init_datasource_transaction_stock_certificate
+
+    init_datasource_transaction_bond()
+    init_datasource_transaction_forex()
+    init_datasource_transaction_futures()
+    init_datasource_transaction_stock_certificate()

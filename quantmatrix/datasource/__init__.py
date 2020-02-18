@@ -15,7 +15,7 @@ NEWS_GOOGLE = "google"
 BOND: str = "bond"
 FOREX: str = "forex"
 FUTURES: str = "futures"
-STOCK: str = "stock"
+STOCK_CERTIFICATE: str = "stock_certificate"
 
 COUNTRY_AMERICA: str = "us"  # 美国
 COUNTRY_BRITAIN: str = "uk"  # 英国
@@ -71,7 +71,7 @@ DATASOURCE: Dict[str, Any] = {
             COUNTRY_HONG_KONG,
             COUNTRY_SINGAPORE,
         ],
-        STOCK: [
+        STOCK_CERTIFICATE: [
             COUNTRY_AMERICA,
             COUNTRY_BRITAIN,
             COUNTRY_CANADA,
