@@ -105,41 +105,41 @@ def transaction_futures_singapore():
 ########################################################################################################################
 
 
-def transaction_stock_certificate_america():
+def transaction_stock_america():
     pass
 
 
-def transaction_stock_certificate_britain():
+def transaction_stock_britain():
     pass
 
 
-def transaction_stock_certificate_canada():
+def transaction_stock_canada():
     pass
 
 
-def transaction_stock_certificate_china():
-    print("transaction_stock_certificate_china")
+def transaction_stock_china():
+    print("transaction_stock_china")
 
 
-def transaction_stock_certificate_france():
+def transaction_stock_france():
     pass
 
 
-def transaction_stock_certificate_germany():
+def transaction_stock_germany():
     pass
 
 
-def transaction_stock_certificate_hong_kong():
+def transaction_stock_hong_kong():
     pass
 
 
-def transaction_stock_certificate_japan():
+def transaction_stock_japan():
     pass
 
 
-def transaction_stock_certificate_singapore():
+def transaction_stock_singapore():
     pass
 
 
-def transaction_stock_certificate_switzerland():
+def transaction_stock_switzerland():
     pass

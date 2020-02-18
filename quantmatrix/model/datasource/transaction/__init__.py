@@ -14,6 +14,6 @@ def init_datasource_transaction_futures():
     pass
 
 
-def init_datasource_transaction_stock_certificate():
-    from quantmatrix.model.datasource.transaction.stock_certificate import init_china
+def init_datasource_transaction_stock():
+    from quantmatrix.model.datasource.transaction.stock import init_china
     init_china()

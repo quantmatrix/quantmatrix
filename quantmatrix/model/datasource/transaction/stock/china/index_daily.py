@@ -4,8 +4,9 @@
 
 from sqlalchemy import Column
 from sqlalchemy.types import String
+from sqlalchemy.dialects.sqlite import TIMESTAMP
 from quantmatrix.model import ModelBase
 
 
-class StockCertificate(ModelBase):
+class IndexDaily(ModelBase):
     pass
