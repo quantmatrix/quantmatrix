@@ -3,4 +3,5 @@
 
 
 def init_datasource():
-    pass
+    from quantmatrix.model.datasource.transaction import init_transaction
+    init_transaction()

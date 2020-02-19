@@ -6,6 +6,22 @@ from sqlalchemy import Column
 from sqlalchemy.dialects.sqlite import DATE, BOOLEAN, INTEGER, REAL, VARCHAR
 from quantmatrix.model import ModelBase
 
+STOCK_SQL: str = """
+CREATE TABLE "Stock" (
+    id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')) NOT NULL, 
+    updated_at TIMESTAMP DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')) NOT NULL, 
+    remove BOOLEAN NOT NULL, 
+    code VARCHAR(50) NOT NULL, 
+    name VARCHAR(500) NOT NULL, 
+    exchange VARCHAR(50) NOT NULL, 
+    offering_date DATE NOT NULL, 
+    last_update_date DATE NOT NULL, 
+    PRIMARY KEY (id), 
+    CHECK (remove IN (0, 1))
+)
+"""
+
 
 class Stock(ModelBase):
     """
@@ -52,3 +68,10 @@ class StockDaily(ModelBase):
     close = Column(REAL, default=0, nullable=False, comment="收盘价格")
     volume = Column(INTEGER, default=0, nullable=False, comment="成交量")
     tick = Column(BOOLEAN, default=False, nullable=False, comment="分笔数据")
+
+
+def init_china():
+    from quantmatrix.datasource import COUNTRY_CHINA, STOCK
+    from quantmatrix.database import Database
+
+    Database().get_transaction_instance(STOCK, COUNTRY_CHINA).execute(STOCK_SQL)
