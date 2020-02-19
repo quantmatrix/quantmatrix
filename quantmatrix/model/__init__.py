@@ -30,7 +30,7 @@ class MetaModel(object):
         return self.columnitems
 
     id = Column(
-        INTEGER(),
+        INTEGER,
         primary_key=True,
         autoincrement=True,
         comment="主键ID"
@@ -50,7 +50,7 @@ class MetaModel(object):
     )
     remove = Column(
         BOOLEAN,
-        server_default=sqlalchemy.sql.expression.text("FALSE"),
+        default=False,
         nullable=False,
         comment="软删除位"
     )

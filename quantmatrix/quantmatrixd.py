@@ -101,6 +101,7 @@ class InitHandler(QuantMatrixRequestHandler):
         from quantmatrix.model.system import init_system
         from quantmatrix.model.datasource import init_datasource
         from quantmatrix.model.quant import init_quant
+
         # system
         init_system()
         # datasource
